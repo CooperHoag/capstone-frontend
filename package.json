@@ -1,5 +1,5 @@
 {
-  "name": "foobar",
+  "name": "Leisure-Buddy-Frontend",
   "type": "module",
   "scripts": {
     "dev": "vite",
