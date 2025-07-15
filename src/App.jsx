@@ -5,7 +5,7 @@ import Register from "./auth/Register";
 import MovieDetails from "./pages/MovieDetails";
 import MoviesList from "./pages/MoviesList";
 import AccountPage from "./pages/AccountPage";
-
+import WatchlistPage from "./pages/WatchListPage";
 export default function App() {
   return (
     <Routes>
@@ -15,6 +15,7 @@ export default function App() {
         <Route path="/login" element={<Login />} />
         <Route path="/account" element={<AccountPage />} />
         <Route path="/movies/:id" element={<MovieDetails />} />
+        <Route path="/watchlist" element={<WatchlistPage />} />;
       </Route>
     </Routes>
   );

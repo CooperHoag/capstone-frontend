@@ -13,8 +13,14 @@ export default function MovieDetails() {
   const [inWatchlist, setInWatchlist] = useState(false);
 
   // Define API mutations for adding and removing from watchlist
-  const { mutate: addToWatchlist } = useMutation("POST", "/watchlist", ["watchlist"]);
-  const { mutate: removeFromWatchlist } = useMutation("DELETE", `/watchlist/${id}`, ["watchlist"]);
+  const { mutate: addToWatchlist } = useMutation("POST", "/watchlist", [
+    "watchlist",
+  ]);
+  const { mutate: removeFromWatchlist } = useMutation(
+    "DELETE",
+    `/watchlist/${id}`,
+    ["watchlist"]
+  );
 
   useEffect(() => {
     // Fetch the movie details using the ID from the URL
@@ -34,7 +40,9 @@ export default function MovieDetails() {
       try {
         const userWatchlist = await request("/watchlist");
         // Check if the current movie ID is in the user's watchlist
-        setInWatchlist(userWatchlist.some((entry) => entry.id === parseInt(id)));
+        setInWatchlist(
+          userWatchlist.some((entry) => entry.id === parseInt(id))
+        );
       } catch (err) {
         console.error("Failed to load watchlist status");
       }
@@ -68,7 +76,9 @@ export default function MovieDetails() {
     <div>
       <h2>{movie.title}</h2>
 
-      {movie.movie_poster && <img src={movie.movie_poster} alt={`${movie.title} poster`} />}
+      {movie.movie_poster && (
+        <img src={movie.movie_poster} alt={`${movie.title} poster`} />
+      )}
 
       <p>Director: {movie.director}</p>
       <p>Release Date: {movie.release_date}</p>
@@ -81,4 +91,3 @@ export default function MovieDetails() {
     </div>
   );
 }
-
