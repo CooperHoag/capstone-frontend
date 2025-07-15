@@ -5,7 +5,7 @@ export default function AccountPage() {
 
   if (loading) return <p>Loading account info...</p>;
   if (error) return <p>Error: {error.message}</p>;
-  if (!data) return <p>No user data found.</p>
+  if (!data) return <p>No user data found.</p>;
 
   return (
     <div>
