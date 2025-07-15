@@ -3,13 +3,14 @@ import Layout from "./layout/Layout";
 import Login from "./auth/Login";
 import Register from "./auth/Register";
 import MovieDetails from "./pages/MovieDetails";
+import MoviesList from "./pages/MoviesList";
 import AccountPage from "./pages/AccountPage";
 
 export default function App() {
   return (
     <Routes>
       <Route element={<Layout />}>
-        <Route index element={<p>Home page</p>} />
+        <Route index element={<MoviesList />} />
         <Route path="/register" element={<Register />} />
         <Route path="/login" element={<Login />} />
         <Route path="/account" element={<AccountPage />} />
