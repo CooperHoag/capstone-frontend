@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+
 import { Link } from "react-router-dom";
 import { useAuth } from "../auth/AuthContext";
 
@@ -11,6 +12,13 @@ export default function MoviesList() {
 
   useEffect(() => {
     // Fetch the list of movies when the component mounts
+
+
+export default function MoviesList() {
+  const [moviesList, setMoviesList] = useState([]);
+
+  useEffect(() => {
+
     fetch("http://localhost:3000/api/movies")
       .then((res) => res.json())
       .then((movieListData) => {
