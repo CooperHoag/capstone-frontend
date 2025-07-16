@@ -4,7 +4,7 @@ import Login from "./auth/Login";
 import Register from "./auth/Register";
 import MovieDetails from "./pages/MovieDetails";
 import MoviesList from "./pages/MoviesList";
-
+import AccountPage from "./pages/AccountPage";
 
 export default function App() {
   return (
@@ -13,6 +13,7 @@ export default function App() {
         <Route index element={<MoviesList />} />
         <Route path="/register" element={<Register />} />
         <Route path="/login" element={<Login />} />
+        <Route path="/account" element={<AccountPage />} />
         <Route path="/movies/:id" element={<MovieDetails />} />
       </Route>
     </Routes>
