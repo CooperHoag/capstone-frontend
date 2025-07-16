@@ -115,6 +115,17 @@ export default function MovieDetails() {
     setReviews(await request(`/reviews/${id}`) || []);
   };
 
+  let formattedDate = "";
+    if (movie?.release_date) {
+      const dateObj = new Date(movie.release_date);
+      formattedDate = dateObj.toLocaleDateString("en-US", {
+        year: "numeric",
+        month: "long",
+        day: "numeric"
+      });
+    };
+
+
   // Render everything!
   if (error) return <p>{error}</p>;
   if (!movie) return <p>Loading...</p>;
@@ -125,7 +136,8 @@ export default function MovieDetails() {
       <h2>{movie.title}</h2>
       {movie.movie_poster && <img src={movie.movie_poster} alt={`${movie.title} poster`} />}
       <p><strong>Director:</strong> {movie.director}</p>
-      <p><strong>Release Date:</strong> {movie.release_date}</p>
+      <p><strong>Genre:</strong> {movie.genres}</p>
+      <p><strong>Release Date:</strong> {formattedDate}</p>
       <p><strong>Plot Summary:</strong> {movie.plot_summary}</p>
 
       {/* Watchlist toggle */}
