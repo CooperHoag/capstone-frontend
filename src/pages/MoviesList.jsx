@@ -7,14 +7,6 @@ import { useAuth } from "../auth/AuthContext";
 export default function MoviesList() {
   const { token } = useAuth(); // Access the auth token from context
   const isAuthenticated = !!token; // Convert token toboolean (true if exists)
-
-  const [moviesList, setMoviesList] = useState([]);
-
-  useEffect(() => {
-    // Fetch the list of movies when the component mounts
-
-
-export default function MoviesList() {
   const [moviesList, setMoviesList] = useState([]);
 
   useEffect(() => {
