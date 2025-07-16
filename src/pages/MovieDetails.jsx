@@ -25,6 +25,7 @@ export default function MovieDetails() {
   const [reviewContent, setReviewContent] = useState("");
   const [reviews, setReviews] = useState([]);
   const [reviewsLoading, setReviewsLoading] = useState(true);
+  const [following, setFollowing] = useState([]);
 
   // When the component loads, fetch everything needed for this movie
   useEffect(() => {
@@ -38,7 +39,9 @@ export default function MovieDetails() {
 
         // Watchlist status
         const userWatchlist = await request("/watchlist");
-        setInWatchlist(userWatchlist.some((entry) => entry.id === parseInt(id)));
+        setInWatchlist(
+          userWatchlist.some((entry) => entry.id === parseInt(id))
+        );
 
         // User's rating for this movie
         const ratings = await request("/ratings/me");
@@ -53,7 +56,7 @@ export default function MovieDetails() {
 
         // Movie reviews
         setReviewsLoading(true);
-        setReviews(await request(`/reviews/${id}`) || []);
+        setReviews((await request(`/reviews/${id}`)) || []);
       } catch (err) {
         setError(err.message);
       } finally {
@@ -65,8 +68,14 @@ export default function MovieDetails() {
   }, [id, request]);
 
   // Handle adding/removing movie from user's watchlist
-  const { mutate: addToWatchlist } = useMutation("POST", "/watchlist", ["watchlist"]);
-  const { mutate: removeFromWatchlist } = useMutation("DELETE", `/watchlist/${id}`, ["watchlist"]);
+  const { mutate: addToWatchlist } = useMutation("POST", "/watchlist", [
+    "watchlist",
+  ]);
+  const { mutate: removeFromWatchlist } = useMutation(
+    "DELETE",
+    `/watchlist/${id}`,
+    ["watchlist"]
+  );
   const toggleWatchlist = async () => {
     if (inWatchlist) {
       await removeFromWatchlist();
@@ -82,9 +91,15 @@ export default function MovieDetails() {
   const handleRating = async (liked) => {
     const newRating = userRating === liked ? null : liked;
     setUserRating(newRating);
-  
-    console.log(newRating === null ? "rating removed" : liked ? "movie liked" : "movie disliked");
-  
+
+    console.log(
+      newRating === null
+        ? "rating removed"
+        : liked
+        ? "movie liked"
+        : "movie disliked"
+    );
+
     if (newRating === null) {
       // Remove the rating if toggled off
       if (userRatingId) {
@@ -101,30 +116,47 @@ export default function MovieDetails() {
   };
 
   // Handle review pop-up, submit, and delete
-  const { mutate: leaveReview } = useMutation("POST", "/reviews", [`reviews-${id}`]);
+  const { mutate: leaveReview } = useMutation("POST", "/reviews", [
+    `reviews-${id}`,
+  ]);
   const submitReview = async () => {
     const result = await leaveReview({ movieId: id, content: reviewContent });
     if (result) {
       setShowModal(false);
       setReviewContent("");
-      setReviews(await request(`/reviews/${id}`) || []);
+      setReviews((await request(`/reviews/${id}`)) || []);
     }
   };
   const handleDeleteReview = async (reviewId) => {
     await request(`/reviews/${reviewId}`, { method: "DELETE" });
-    setReviews(await request(`/reviews/${id}`) || []);
+    setReviews((await request(`/reviews/${id}`)) || []);
   };
 
   let formattedDate = "";
-    if (movie?.release_date) {
-      const dateObj = new Date(movie.release_date);
-      formattedDate = dateObj.toLocaleDateString("en-US", {
-        year: "numeric",
-        month: "long",
-        day: "numeric"
-      });
-    };
+  if (movie?.release_date) {
+    const dateObj = new Date(movie.release_date);
+    formattedDate = dateObj.toLocaleDateString("en-US", {
+      year: "numeric",
+      month: "long",
+      day: "numeric",
+    });
+  }
+  const { mutate: followUser } = useMutation("POST", "/followers", [
+    "followers",
+  ]);
+  const { mutate: unfollowUser } = useMutation("DELETE", "/followers", [
+    "followers",
+  ]);
 
+  const toggleFollow = async (userId) => {
+    if (following.includes(userId)) {
+      await unfollowUser({ userId });
+      setFollowing(following.filter((id) => id !== userId));
+    } else {
+      await followUser({ userId });
+      setFollowing([...following, userId]);
+    }
+  };
 
   // Render everything!
   if (error) return <p>{error}</p>;
@@ -132,39 +164,44 @@ export default function MovieDetails() {
 
   return (
     <div className="movie-details">
-      {/* Show movie info */}
       <h2>{movie.title}</h2>
-      {movie.movie_poster && <img src={movie.movie_poster} alt={`${movie.title} poster`} />}
-      <p><strong>Director:</strong> {movie.director}</p>
-      <p><strong>Genre:</strong> {movie.genres}</p>
-      <p><strong>Release Date:</strong> {formattedDate}</p>
-      <p><strong>Plot Summary:</strong> {movie.plot_summary}</p>
+      {movie.movie_poster && (
+        <img src={movie.movie_poster} alt={`${movie.title} poster`} />
+      )}
+      <p>
+        <strong>Director:</strong> {movie.director}
+      </p>
+      <p>
+        <strong>Release Date:</strong> {movie.release_date}
+      </p>
+      <p>
+        <strong>Plot Summary:</strong> {movie.plot_summary}
+      </p>
 
-      {/* Watchlist toggle */}
       <button onClick={toggleWatchlist}>
         {inWatchlist ? "✓ In Watchlist" : "Add to Watchlist"}
       </button>
 
-      {/* Like/dislike rating section */}
       <div className="rating-buttons">
         <p>Rate this movie:</p>
         <button
           onClick={() => handleRating(true)}
           style={{
             fontWeight: userRating === true ? "bold" : "normal",
-            border: userRating === true ? "2px solid black" : "1px solid gray"
-          }}>
+            border: userRating === true ? "2px solid black" : "1px solid gray",
+          }}
+        >
           👍
         </button>
         <button
           onClick={() => handleRating(false)}
           style={{
             fontWeight: userRating === false ? "bold" : "normal",
-            border: userRating === false ? "2px solid black" : "1px solid gray"
-          }}>
+            border: userRating === false ? "2px solid black" : "1px solid gray",
+          }}
+        >
           👎
         </button>
-
       </div>
 
       <div className="leave-review">
@@ -184,14 +221,12 @@ export default function MovieDetails() {
         </div>
       )}
 
-      {/* Show all reviews */}
       <div className="reviews">
         <h3>Reviews:</h3>
         {reviewsLoading ? (
           <p>Loading reviews...</p>
         ) : (
           reviews.map((review) => {
-            // Only show delete button for your own reviews
             const isOwnReview =
               me &&
               (review.user_id === me.id || review.username === me.username);
@@ -200,8 +235,18 @@ export default function MovieDetails() {
                 <p>
                   <strong>{review.username}:</strong> {review.content}
                 </p>
+
+                {/* ✅ Follow/Unfollow button */}
+                {me && review.user_id !== me.id && (
+                  <button onClick={() => toggleFollow(review.user_id)}>
+                    {following.includes(review.user_id) ? "Unfollow" : "Follow"}
+                  </button>
+                )}
+
                 {isOwnReview && (
-                  <button onClick={() => handleDeleteReview(review.id)}>Delete</button>
+                  <button onClick={() => handleDeleteReview(review.id)}>
+                    Delete
+                  </button>
                 )}
               </div>
             );
