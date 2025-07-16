@@ -2,10 +2,9 @@ import { useState } from "react";
 import useQuery from "../api/useQuery";
 
 export default function AccountPage() {
-  // Load the current user info
   const { data: user, loading, error } = useQuery("/users/me", "me");
   // Tab state: 'rated', 'watchlist', or 'suggestions'
-  const [activeTab, setActiveTab] = useState("suggestions"); // Default to "suggestions"
+  const [activeTab, setActiveTab] = useState("suggestions");
 
   // Load the watchlist and rated movies
   const { data: watchlist = [], loading: loadingWatchlist } = useQuery("/watchlist", "watchlist");
@@ -36,7 +35,7 @@ export default function AccountPage() {
       {activeTab === "rated" && (
         <section>
           <h2>Your Rated Movies</h2>
-          {/* FILTER DROPDOWN: Put this right above the list! */}
+          {/* ---FILTER DROPDOWN--- */}
           <label>
             Show:&nbsp;
             <select
@@ -92,7 +91,7 @@ export default function AccountPage() {
         </section>
       )}
 
-      {/* --- Movie Suggestions Tab (optional/placeholder) --- */}
+      {/* --- Movie Suggestions Tab --- */}
       {activeTab === "suggestions" && (
         <section>
           <h2>Movie Suggestions (Coming Soon)</h2>
