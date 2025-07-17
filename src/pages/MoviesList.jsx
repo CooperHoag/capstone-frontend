@@ -1,14 +1,21 @@
 import { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useAuth } from "../auth/AuthContext";
 
-
 export default function MoviesList() {
-  const { token } = useAuth(); // Access the auth token from context
-  const isAuthenticated = !!token; // Convert token toboolean (true if exists)
-
+  const { token } = useAuth();
+  const isAuthenticated = !!token;
   const [moviesList, setMoviesList] = useState([]);
   const [searchTerm, setSearchTerm] = useState("");
+
+  const navigate = useNavigate();
+
+  // Optional: Only restrict /movies (not homepage)
+  useEffect(() => {
+    if (window.location.pathname === "/movies" && !token) {
+      navigate("/login");
+    }
+  }, [token, navigate]);
 
   useEffect(() => {
     const fetchMovies = async () => {
@@ -40,15 +47,13 @@ export default function MoviesList() {
         style={{ marginBottom: "20px", padding: "6px", width: "25%" }}
       />
 
-      {!isAuthenticated && (
-              <p style={{ color: 'gray' }}>Log in to view movie details</p>
-            )}
-
       <ul>
         {filteredMovies.map((movie) => (
           <li key={movie.id}>
             {movie.title} - {movie.genres}
-            
+            {!isAuthenticated && (
+              <p style={{ color: 'gray' }}>Log in to view movie details</p>
+            )}
             {isAuthenticated && (
               <Link to={`/movies/${movie.id}`} style={{ marginLeft: '10px' }}>
                 <button>View Movie Details</button>

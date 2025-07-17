@@ -172,7 +172,7 @@ export default function MovieDetails() {
         <strong>Director:</strong> {movie.director}
       </p>
       <p>
-        <strong>Release Date:</strong> {movie.release_date}
+        <strong>Release Date:</strong> {formattedDate || "Unknown"}
       </p>
       <p>
         <strong>Plot Summary:</strong> {movie.plot_summary}
