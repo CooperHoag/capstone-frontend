@@ -6,6 +6,7 @@ import MovieDetails from "./pages/MovieDetails";
 import MoviesList from "./pages/MoviesList";
 import AccountPage from "./pages/AccountPage";
 import WatchlistPage from "./pages/WatchListPage";
+
 export default function App() {
   return (
     <Routes>
