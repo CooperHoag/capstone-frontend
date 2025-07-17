@@ -49,7 +49,7 @@ export default function MoviesList() {
             )}
             {isAuthenticated && (
               <Link to={`/movies/${movie.id}`} style={{ marginLeft: '10px' }}>
-                View Movie Details
+                <button>View Movie Details</button>
               </Link>
             )}
           </li>
