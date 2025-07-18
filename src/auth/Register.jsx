@@ -1,7 +1,8 @@
 import { useState } from "react";
-import { Link, useNavigate } from "react-router";
+import { Link, useNavigate } from "react-router-dom";
 
 import { useAuth } from "./AuthContext";
+
 
 /** A form that allows users to register for a new account */
 export default function Register() {
@@ -9,6 +10,20 @@ export default function Register() {
   const navigate = useNavigate();
 
   const [error, setError] = useState(null);
+  const [selectedGenres, setSelectedGenres] = useState([]);
+
+  const genres = ["Action", "Comedy", "Drama", "Fantasy", "Horror", "Sci-Fi"]; 
+
+  const toggleGenre = (genre) => {
+    setSelectedGenres((prev) =>
+      prev.includes(genre)
+        ? prev.filter((g) => g !== genre)
+        : prev.length < 3
+        ? [...prev, genre]
+        : prev
+    );
+  };
+
 
   const onRegister = async (formData) => {
     const firstName = formData.get("firstName");
@@ -17,20 +32,34 @@ export default function Register() {
     const username = formData.get("username");
     const password = formData.get("password");
     const bio = formData.get("bio");
-    const profileImageUrl = formData.get("profileImageUrl");
-    try {
-      const response = await register({ firstName, lastName, email, username, password, bio, profileImageUrl });
 
+
+
+    try {
+      await register({ firstName, lastName, email, username, password, bio, favoriteGenres: selectedGenres, });
       navigate("/");
     } catch (e) {
-      setError(e.message);
+      setError(e.message || "Registration failed");
     }
   };
+
+   const handleSubmit = (e) => {
+    e.preventDefault();
+    const formData = new FormData(e.target);
+
+    if (selectedGenres.length !== 3) {
+      setError("Please select exactly 3 genres.");
+      return;
+    }
+
+    onRegister(formData);
+  };
+
 
   return (
     <>
       <h1>Register for an account</h1>
-      <form action={onRegister}>
+      <form onSubmit={handleSubmit}>
         <label>
           First Name
           <input type="text" name="firstName" required />
@@ -55,14 +84,43 @@ export default function Register() {
           Bio
           <textarea name="bio" />
         </label>
-        <label>
-          Profile Image
-          <input type="url" name="profileImageUrl" />
-        </label>
+
         <button type="submit">Register</button>
         {error && <output>{error}</output>}
       </form>
+
+      <fieldset>
+  <legend>Select exactly 3 favorite genres</legend>
+  <div className="genre-options">
+    {genres.map((genre) => (
+      <label
+        key={genre}
+        className={
+          selectedGenres.includes(genre)
+            ? "genre-label selected"
+            : "genre-label"
+        }
+      >
+        <input
+          type="checkbox"
+          value={genre}
+          checked={selectedGenres.includes(genre)}
+          onChange={() => toggleGenre(genre)}
+        />
+        {genre}
+      </label>
+    ))}
+  </div>
+  {selectedGenres.length !== 3 && (
+    <p style={{ color: "#F85525", fontWeight: "bold" }}>
+      Please select exactly 3 genres.
+    </p>
+  )}
+</fieldset>
+
       <Link to="/login">Already have an account? Log in here.</Link>
+
+      
     </>
   );
 }
