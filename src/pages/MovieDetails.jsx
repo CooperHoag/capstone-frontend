@@ -35,7 +35,9 @@ export default function MovieDetails() {
         // Movie info
         const res = await fetch(`/api/movies/${id}`);
         if (!res.ok) throw new Error("Failed to fetch movie");
-        setMovie(await res.json());
+        const results = await res.json();
+        console.log(results);
+        setMovie(results);
 
         // Watchlist status
         const userWatchlist = await request("/watchlist");
@@ -65,7 +67,7 @@ export default function MovieDetails() {
     }
 
     fetchAll();
-  }, [id, request]);
+  }, []);
 
   // Handle adding/removing movie from user's watchlist
   const { mutate: addToWatchlist } = useMutation("POST", "/watchlist", [
