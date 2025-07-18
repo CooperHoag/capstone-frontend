@@ -20,8 +20,7 @@ export default function Register() {
     const profileImageUrl = formData.get("profileImageUrl");
     try {
       const response = await register({ firstName, lastName, email, username, password, bio, profileImageUrl });
-     console.log(response);
-      setToken(response);
+
       navigate("/");
     } catch (e) {
       setError(e.message);

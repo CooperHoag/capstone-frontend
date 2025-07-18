@@ -15,10 +15,6 @@ export default function Login() {
     const password = formData.get("password");
     try {
       const userInfo = await login({ username, password });
-      console.log('user token', userInfo);
-      setToken(userInfo);
-
-      
       navigate("/");
     } catch (e) {
       setError(e.message);
