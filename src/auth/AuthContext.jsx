@@ -5,11 +5,7 @@ import { API } from "../api/ApiContext";
 const AuthContext = createContext();
 
 export function AuthProvider({ children }) {
-  const [token, setToken] = useState(sessionStorage.getItem("token"));
-
-  useEffect(() => {
-    if (token) sessionStorage.setItem("token", token);
-  }, [token]);
+  const [token, setToken] = useState(sessionStorage.getItem("token") || null);
 
   const register = async (credentials) => {
     const response = await fetch(API + "/users/register", {
@@ -17,9 +13,11 @@ export function AuthProvider({ children }) {
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(credentials),
     });
-    const result = await response.text();
+    const result = await response.json();
     if (!response.ok) throw Error(result);
+    console.log('user token hopefully', result)
     setToken(result);
+    sessionStorage.setItem('token', result);
   };
 
   const login = async (credentials) => {
@@ -28,9 +26,11 @@ export function AuthProvider({ children }) {
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(credentials),
     });
-    const result = await response.text();
+    const result = await response.json();
     if (!response.ok) throw Error(result);
+    console.log('user token hopefully', result)
     setToken(result);
+    sessionStorage.setItem('token', result);
   };
 
   const logout = () => {
@@ -38,7 +38,7 @@ export function AuthProvider({ children }) {
     sessionStorage.removeItem("token");
   };
 
-  const value = { token, register, login, logout };
+  const value = { token, setToken, register, login, logout };
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
 }
 

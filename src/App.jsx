@@ -12,6 +12,7 @@ export default function App() {
     <Routes>
       <Route element={<Layout />}>
         <Route index element={<MoviesList />} />
+        <Route path="/movies" element={<MoviesList />} />
         <Route path="/register" element={<Register />} />
         <Route path="/login" element={<Login />} />
         <Route path="/account" element={<AccountPage />} />

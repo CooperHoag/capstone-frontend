@@ -4,16 +4,16 @@ import useQuery from "../api/useQuery";
 import useMutation from "../api/useMutation";
 import { useApi } from "../api/ApiContext";
 
-function useCurrentUser() {
-  const { data: me } = useQuery("/users/me", "me");
-  return me;
-}
+// function useCurrentUser() {
+//   const { data: me } = useQuery("/users/me", "me");
+//   return me;
+// }
 
 export default function MovieDetails() {
   // Get the movie ID from the URL
   const { id } = useParams();
   const { request } = useApi();
-  const me = useCurrentUser();
+  // const me = useCurrentUser();
 
   // State for all the info and UI controls on the page
   const [movie, setMovie] = useState(null);
@@ -33,9 +33,11 @@ export default function MovieDetails() {
     async function fetchAll() {
       try {
         // Movie info
-        const res = await fetch(`/api/movies/${id}`);
+        const res = await fetch(`https://capstone-backend-w0dr.onrender.com/api/movies/${id}`);
         if (!res.ok) throw new Error("Failed to fetch movie");
-        setMovie(await res.json());
+        const results = await res.json();
+        console.log(results);
+        setMovie(results);
 
         // Watchlist status
         const userWatchlist = await request("/watchlist");
@@ -65,7 +67,7 @@ export default function MovieDetails() {
     }
 
     fetchAll();
-  }, [id, request]);
+  }, []);
 
   // Handle adding/removing movie from user's watchlist
   const { mutate: addToWatchlist } = useMutation("POST", "/watchlist", [
@@ -172,7 +174,7 @@ export default function MovieDetails() {
         <strong>Director:</strong> {movie.director}
       </p>
       <p>
-        <strong>Release Date:</strong> {movie.release_date}
+        <strong>Release Date:</strong> {formattedDate || "Unknown"}
       </p>
       <p>
         <strong>Plot Summary:</strong> {movie.plot_summary}

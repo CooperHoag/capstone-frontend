@@ -1,22 +1,26 @@
 import { useState } from "react";
 import useQuery from "../api/useQuery";
+import RemoveFromWatchlistButton from "../pages/RemoveFromWatchlistButton";
 
 export default function AccountPage() {
   const { data: user, loading, error } = useQuery("/users/me", "me");
-  // Tab state: 'rated', 'watchlist', or 'suggestions'
   const [activeTab, setActiveTab] = useState("suggestions");
 
-  // Load the watchlist and rated movies
-  const { data: watchlist = [], loading: loadingWatchlist } = useQuery("/watchlist", "watchlist");
+  const { data: watchlist = [], loading: loadingWatchlist, refetch: refetchWatchlist } = useQuery("/watchlist", "watchlist");
   const { data: ratedMovies = [], loading: loadingRated } = useQuery("/ratings/me", "rated-movies");
+  const [ratedFilter, setRatedFilter] = useState("all");
 
-  // State for the thumbs up/down filter
-  const [ratedFilter, setRatedFilter] = useState("all"); // "all", "liked", "disliked"
-
-  // Filter rated movies by thumbs up/down
   let filteredRated = ratedMovies;
   if (ratedFilter === "liked") filteredRated = ratedMovies.filter(m => m.rating === true);
   if (ratedFilter === "disliked") filteredRated = ratedMovies.filter(m => m.rating === false);
+
+  
+  function handleRemovedFromWatchlist(movieId) {
+    // Remove the movie locally from the watchlist
+    const updatedWatchlist = watchlist.filter((movie) => movie.id !== movieId);
+    watchlist.splice(0, watchlist.length, ...updatedWatchlist);
+    refetchWatchlist(); // Refetch the watchlist for data consistency
+  }
 
   if (loading) return <p>Loading account info...</p>;
   if (error) return <p>Error: {error.message}</p>;
@@ -31,19 +35,13 @@ export default function AccountPage() {
         <button onClick={() => setActiveTab("suggestions")}>Movie Suggestions</button>
       </nav>
 
-      {/* --- Rated Movies Tab --- */}
+      {/* Rated Movies Tab */}
       {activeTab === "rated" && (
         <section>
           <h2>Your Rated Movies</h2>
-          {/* ---FILTER DROPDOWN--- */}
           <label>
             Show:&nbsp;
-            <select
-              value={ratedFilter}
-              onChange={e => {
-                setRatedFilter(e.target.value);
-              }}
-            >
+            <select value={ratedFilter} onChange={e => setRatedFilter(e.target.value)}>
               <option value="all">All</option>
               <option value="liked">👍 Liked</option>
               <option value="disliked">👎 Disliked</option>
@@ -70,7 +68,7 @@ export default function AccountPage() {
         </section>
       )}
 
-      {/* --- Watchlist Tab --- */}
+      {/* Watchlist Tab */}
       {activeTab === "watchlist" && (
         <section>
           <h2>Your Watchlist</h2>
@@ -80,9 +78,12 @@ export default function AccountPage() {
             ) : (
               <ul>
                 {watchlist.map(movie => (
-                  <li key={movie.id}>
-                    <strong>{movie.title}</strong> ({movie.genres})<br />
-                    <em>{movie.plot_summary}</em>
+                  <li key={movie.id} style={{ display: "flex", alignItems: "center", gap: "1rem", marginBottom: "0.5rem" }}>
+                    <div>
+                      <strong>{movie.title}</strong> ({movie.genres})<br />
+                      <em>{movie.plot_summary}</em>
+                    </div>
+                    <RemoveFromWatchlistButton movie={movie} onRemoved={handleRemovedFromWatchlist} refetchWatchlist={refetchWatchlist} />
                   </li>
                 ))}
               </ul>
@@ -91,7 +92,7 @@ export default function AccountPage() {
         </section>
       )}
 
-      {/* --- Movie Suggestions Tab --- */}
+      {/* Suggestions Tab */}
       {activeTab === "suggestions" && (
         <section>
           <h2>Movie Suggestions (Coming Soon)</h2>
@@ -101,3 +102,4 @@ export default function AccountPage() {
     </div>
   );
 }
+
