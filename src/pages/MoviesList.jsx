@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { useAuth } from "../auth/AuthContext";
+import "/src/movies-list.css";
 
 export default function MoviesList() {
   const { token } = useAuth();
@@ -36,18 +37,25 @@ export default function MoviesList() {
   });
 
   return (
-    <div className="movieLine">
-      <h2>Movie Catalog</h2>
-
-      <input
+    <div className="movie-list-component">
+      
+      <input 
+        className="movies-list-search"
         type="text"
         placeholder="Search by title or genre"
         value={searchTerm}
         onChange={(e) => setSearchTerm(e.target.value)}
         style={{ marginBottom: "20px", padding: "6px", width: "25%" }}
       />
+      
+      <h2>Movie Catalog</h2>
 
-      <ul>
+      {!isAuthenticated && (
+              <p style={{ color: 'gray' }}>Log in to view movie details</p>
+            )}
+
+      <ul className="list-of-movies">
+
         {filteredMovies.map((movie) => (
           <li key={movie.id}>
             {movie.title} - {movie.genres}
