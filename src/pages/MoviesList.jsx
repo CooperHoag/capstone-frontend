@@ -19,7 +19,7 @@ export default function MoviesList() {
 
   useEffect(() => {
     const fetchMovies = async () => {
-      const res = await fetch("http://localhost:3000/api/movies");
+      const res = await fetch("https://capstone-backend-w0dr.onrender.com/api/movies");
       const movieListData = await res.json();
       setMoviesList(movieListData);
     };
