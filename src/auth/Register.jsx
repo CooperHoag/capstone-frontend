@@ -5,7 +5,7 @@ import { useAuth } from "./AuthContext";
 
 /** A form that allows users to register for a new account */
 export default function Register() {
-  const { register } = useAuth();
+  const { register, setToken } = useAuth();
   const navigate = useNavigate();
 
   const [error, setError] = useState(null);
@@ -19,7 +19,9 @@ export default function Register() {
     const bio = formData.get("bio");
     const profileImageUrl = formData.get("profileImageUrl");
     try {
-      await register({ firstName, lastName, email, username, password, bio, profileImageUrl });
+      const response = await register({ firstName, lastName, email, username, password, bio, profileImageUrl });
+     console.log(response);
+      setToken(response);
       navigate("/");
     } catch (e) {
       setError(e.message);
