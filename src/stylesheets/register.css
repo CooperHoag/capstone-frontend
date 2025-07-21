@@ -1,0 +1,193 @@
+/* * {
+  background: lightgray;
+} */
+
+
+fieldset {
+  border: 2px solid #01204E;       
+  background-color: #F6DCAC;       
+  padding: 1rem 1.5rem;
+  border-radius: 8px;
+  margin: 1rem 0;
+  color: #01204E;                  
+}
+
+legend {
+  font-weight: bold;
+  font-size: 1.1rem;
+  color: #028391;                 
+  padding: 0 10px;
+}
+
+
+.genre-options {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: 0.75rem;
+}
+
+
+.genre-label {
+  padding: 6px 12px;
+  border: 1.5px solid gray;
+  border-radius: 6px;
+  cursor: pointer;
+  user-select: none;
+  transition: border-color 0.3s ease, background-color 0.3s ease;
+  font-weight: 600;
+  color: #01204E; 
+}
+
+
+.genre-label.selected {
+  border-color: #FAA968;           
+  background-color: #F85525;       
+  color: white;
+}
+
+.genre-label input {
+  margin-right: 6px;
+  cursor: pointer;
+}
+
+body, .register-page {
+  background: linear-gradient(135deg, #F6DCAC 0%, #FAA968 100%);
+  font-family: 'Segoe UI', Arial, sans-serif;
+  color: #01204E; 
+  min-height: 100vh;
+  margin: 0;
+  padding: 0;
+}
+
+
+.register-container {
+  max-width: 420px;
+  margin: 2rem auto;
+  background: #F6DCAC; 
+  border-radius: 12px;
+  box-shadow: 0 2px 16px rgba(1,32,78,0.08);
+  padding: 2rem 2.5rem;
+  border: 2px solid #01204E;
+}
+
+
+.register-container h1,
+.register-container legend {
+  color: #028391; 
+  font-weight: bold;
+  margin-bottom: 1rem;
+}
+
+
+.register-container input[type="text"],
+.register-container input[type="email"],
+.register-container input[type="password"],
+.register-container textarea {
+  width: 100%;
+  padding: 8px 12px;
+  margin: 0.5rem 0 1rem 0;
+  border: 1.5px solid #028391;
+  border-radius: 6px;
+  background: #fff;
+  color: #01204E;
+  font-size: 1rem;
+  transition: border-color 0.3s;
+}
+
+.register-container input:focus,
+.register-container textarea:focus {
+  border-color: #F85525; 
+  outline: none;
+}
+
+
+fieldset {
+  border: 2px solid #01204E;
+  background-color: #F6DCAC;
+  padding: 1rem 1.5rem;
+  border-radius: 8px;
+  margin: 1rem 0;
+  color: #01204E;
+}
+
+legend {
+  font-weight: bold;
+  font-size: 1.1rem;
+  color: #028391;
+  padding: 0 10px;
+}
+
+
+.genre-options {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: 0.75rem;
+}
+
+
+.genre-label {
+  padding: 6px 12px;
+  border: 1.5px solid gray;
+  border-radius: 6px;
+  cursor: pointer;
+  user-select: none;
+  transition: border-color 0.3s ease, background-color 0.3s ease;
+  font-weight: 600;
+  color: #01204E;
+  background: #fff;
+}
+
+
+.genre-label.selected {
+  border-color: #FAA968;           
+  background-color: #F85525;       
+  color: white;
+}
+
+.genre-label input {
+  margin-right: 6px;
+  cursor: pointer;
+}
+
+
+.register-container button[type="submit"] .register-container .login-btn {
+  background: #028391; 
+  color: #fff;
+  border: none;
+  border-radius: 6px;
+  padding: 10px 24px;
+  font-size: 1.1rem;
+  font-weight: bold;
+  cursor: pointer;
+  margin-top: 1rem;
+  transition: background 0.3s;
+}
+
+.register-container button[type="submit"]:hover, .register-container .login-btn:hover {
+  background: #F85525; 
+}
+
+
+.register-error {
+  color: #F85525;
+  background: #FAA968;
+  border-radius: 6px;
+  padding: 8px 12px;
+  margin-bottom: 1rem;
+  font-weight: bold;
+  border: 1px solid #F85525;
+}
+
+
+.register-container a {
+  color: #028391;
+  text-decoration: underline;
+  font-weight: 500;
+}
+
+.register-container a:hover {
+  color: #F85525;
+}
+
