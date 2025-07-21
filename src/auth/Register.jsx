@@ -1,8 +1,7 @@
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-
 import { useAuth } from "./AuthContext";
-
+import "../stylesheets/register.css"; // <-- Add this line
 
 /** A form that allows users to register for a new account */
 export default function Register() {
@@ -12,7 +11,7 @@ export default function Register() {
   const [error, setError] = useState(null);
   const [selectedGenres, setSelectedGenres] = useState([]);
 
-  const genres = ["Action", "Comedy", "Drama", "Fantasy", "Horror", "Sci-Fi"]; 
+  const genres = ["Action", "Comedy", "Drama", "Fantasy", "Horror", "Sci-Fi"];
 
   const toggleGenre = (genre) => {
     setSelectedGenres((prev) =>
@@ -24,7 +23,6 @@ export default function Register() {
     );
   };
 
-
   const onRegister = async (formData) => {
     const firstName = formData.get("firstName");
     const lastName = formData.get("lastName");
@@ -33,17 +31,23 @@ export default function Register() {
     const password = formData.get("password");
     const bio = formData.get("bio");
 
-
-
     try {
-      await register({ firstName, lastName, email, username, password, bio, favoriteGenres: selectedGenres, });
+      await register({
+        firstName,
+        lastName,
+        email,
+        username,
+        password,
+        bio,
+        favoriteGenres: selectedGenres,
+      });
       navigate("/");
     } catch (e) {
       setError(e.message || "Registration failed");
     }
   };
 
-   const handleSubmit = (e) => {
+  const handleSubmit = (e) => {
     e.preventDefault();
     const formData = new FormData(e.target);
 
@@ -55,9 +59,8 @@ export default function Register() {
     onRegister(formData);
   };
 
-
   return (
-    <>
+    <div className="register-container">
       <h1>Register for an account</h1>
       <form onSubmit={handleSubmit}>
         <label>
@@ -86,41 +89,39 @@ export default function Register() {
         </label>
 
         <button type="submit">Register</button>
-        {error && <output>{error}</output>}
+        {error && <div className="register-error">{error}</div>} {/* <-- Update error styling */}
       </form>
 
       <fieldset>
-  <legend>Select exactly 3 favorite genres</legend>
-  <div className="genre-options">
-    {genres.map((genre) => (
-      <label
-        key={genre}
-        className={
-          selectedGenres.includes(genre)
-            ? "genre-label selected"
-            : "genre-label"
-        }
-      >
-        <input
-          type="checkbox"
-          value={genre}
-          checked={selectedGenres.includes(genre)}
-          onChange={() => toggleGenre(genre)}
-        />
-        {genre}
-      </label>
-    ))}
-  </div>
-  {selectedGenres.length !== 3 && (
-    <p style={{ color: "#F85525", fontWeight: "bold" }}>
-      Please select exactly 3 genres.
-    </p>
-  )}
-</fieldset>
+        <legend>Select exactly 3 favorite genres</legend>
+        <div className="genre-options">
+          {genres.map((genre) => (
+            <label
+              key={genre}
+              className={
+                selectedGenres.includes(genre)
+                  ? "genre-label selected"
+                  : "genre-label"
+              }
+            >
+              <input
+                type="checkbox"
+                value={genre}
+                checked={selectedGenres.includes(genre)}
+                onChange={() => toggleGenre(genre)}
+              />
+              {genre}
+            </label>
+          ))}
+        </div>
+        {selectedGenres.length !== 3 && (
+          <p className="register-error">
+            Please select exactly 3 genres.
+          </p>
+        )}
+      </fieldset>
 
       <Link to="/login">Already have an account? Log in here.</Link>
-
-      
-    </>
+    </div>
   );
 }
