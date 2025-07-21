@@ -87,8 +87,6 @@ export default function Register() {
           <textarea className="register-input register-bio" name="bio" placeholder="Avid movie watcher who is tired of snakes being on planes!"  />
         </label>
         
-      
-
       <fieldset className="genre-fieldset">
         <legend className="genre-legend">Select your top 3 favorite genres</legend>
         <div className="genre-options">
