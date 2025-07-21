@@ -64,27 +64,27 @@ export default function Register() {
       <form className="register-form" onSubmit={handleSubmit}>
         <label className="register-label">
           First Name
-          <input className="register-input" type="text" name="firstName" required />
+          <input className="register-input" type="text" name="firstName" placeholder="Sam" required />
         </label>
         <label className="register-label">
           Last Name
-          <input className="register-input" type="text" name="lastName" required />
+          <input className="register-input" type="text" name="lastName" placeholder="Jackson" required />
         </label>
         <label className="register-label">
           Email
-          <input className="register-input" type="email" name="email" required />
+          <input className="register-input" type="email" name="email" placeholder="SLJ@SnakesOnAPlane.com" required />
         </label>
         <label className="register-label">
           Username
-          <input className="register-input" type="text" name="username" required />
+          <input className="register-input" type="text" name="username" placeholder="BigSam"  required />
         </label>
         <label className="register-label">
           Password
-          <input className="register-input" type="password" name="password" required />
+          <input className="register-input" type="password" name="password" placeholder="Password"  required />
         </label>
         <label className="register-label">
           Bio
-          <textarea className="register-input register-bio" name="bio" />
+          <textarea className="register-input register-bio" name="bio" placeholder="Avid movie watcher who is tired of snakes being on planes!"  />
         </label>
         
       
