@@ -1,0 +1,113 @@
+.movie-list-component {
+  background: #028391;
+  margin: 40px auto 0 auto;
+  max-width: 1100px;
+  padding: 2rem 1rem;
+  border-radius: 10px;
+  box-shadow: 0 2px 14px #000a;
+}
+
+.h2-movie-catalog {
+  display: flex;
+  justify-content: center;
+  color: #01204E;
+  background: #028391;
+  font-family: 'Geneva', Arial, sans-serif;
+  font-size: 3rem;
+  text-shadow: #faa968 1px 2px 6px;
+  margin-bottom: 2rem;
+}
+
+.movies-search-bar {
+  display: block;
+  margin: 0 auto 2rem auto;
+  width: 340px;
+  max-width: 90%;
+  padding: 9px 15px;
+  font-size: 1.12rem;
+  border: 1.5px solid #01204E;
+  border-radius: 7px;
+  background: #F6DCAC;
+  color: #01204E;
+}
+
+.movies-grid {
+  background: #028391;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 2rem;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  justify-items: center;
+}
+
+.movie-card {
+  background: #F6DCAC;
+  border-radius: 16px;
+  box-shadow: 0 2px 12px #01204e14;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 18px 8px;
+  min-width: 180px;
+  min-height: 290px;
+}
+
+.movie-card-poster {
+  width: 120px;
+  height: 180px;
+  object-fit: cover;
+  border-radius: 9px;
+  margin-bottom: 1rem;
+  box-shadow: 0 2px 8px #01204e44;
+}
+
+.movie-card-title {
+  color: #01204E;
+  font-size: 1.08rem;
+  font-weight: 700;
+  margin-bottom: 0.15rem;
+  text-align: center;
+  background: #F6DCAC;
+}
+
+.movie-card-genre {
+  color: #028391;
+  font-size: 1rem;
+  font-weight: 500;
+  margin-bottom: 0.65rem;
+  text-align: center;
+  background: #F6DCAC;
+}
+
+.movie-card-details-link {
+  margin-top: 12px;
+  background: #028391;
+  color: #F6DCAC;
+  border: none;
+  border-radius: 7px;
+  padding: 7px 15px;
+  font-size: 1rem;
+  cursor: pointer;
+  font-weight: 600;
+  text-decoration: none;
+  transition: background 0.18s, color 0.18s;
+  box-shadow: 0 1px 8px #01204e22;
+  display: inline-block;
+}
+.movie-card-details-link:hover {
+  background: #faa968;
+  color: #01204E;
+  text-decoration: underline;
+}
+
+.log-in-text {
+  display: flex;
+  justify-content: center;
+  background: #028391;
+  color: black;
+  font-size: 25px;
+  margin-bottom: 1rem;
+  text-align: left;
+}

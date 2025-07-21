@@ -106,9 +106,9 @@ export default function AccountPage() {
           </label>
           {loadingRated ? <p>Loading...</p> : (
             filteredRated.length === 0 ? (
-              <p>
-                Welcome {user.first_name}! You have not rated any movies yet!{" "}
-                <a href="/movies">Click HERE to see movie list.</a>
+              <p className="no-movies-in-rated">
+                Hey there {user.first_name}! You have not rated any movies yet!{" "}
+                <a className="see-movie-list-link" href="/movies">See movie list.</a>
               </p>
             ) : (
               <ul className="account-movies-list">
@@ -136,7 +136,9 @@ export default function AccountPage() {
           <h2 className="each-section-title">Your Watchlist</h2>
           {loadingWatchlist ? <p>Loading...</p> : (
             watchlist.length === 0 ? (
-              <p>Your watchlist is empty!</p>
+              <p className="no-movies-in-rated">Your watchlist is empty!{" "}
+              <a className="see-movie-list-link" href="/movies">See movie list.</a>
+              </p>
             ) : (
               <ul className="account-movies-list">
                 {watchlist.map(movie => (

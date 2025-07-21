@@ -19,7 +19,7 @@ export default function Navbar() {
           </>
         ) : (
           <>
-            <NavLink className="login-nb" to="/login">Log in</NavLink>
+            <NavLink className="login-nb" to="/login">Log In</NavLink>
             <NavLink className="register-nb" to="/register">Sign Up</NavLink>
           </>
         )}

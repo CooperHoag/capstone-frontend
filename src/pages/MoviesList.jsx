@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { useAuth } from "../auth/AuthContext";
-import "/src/movies-list.css";
+import "../stylesheets/MoviesList.css";
 
 export default function MoviesList() {
   const { token } = useAuth();
@@ -11,7 +11,6 @@ export default function MoviesList() {
 
   const navigate = useNavigate();
 
-  // Optional: Only restrict /movies (not homepage)
   useEffect(() => {
     if (window.location.pathname === "/movies" && !token) {
       navigate("/login");
@@ -37,34 +36,28 @@ export default function MoviesList() {
   });
 
   return (
-    <div className="movie-list-component">
-      
-      <input 
-        className="movies-list-search"
+    <div className="movie-list-component component-bg-color">
+      <h2 className="h2-movie-catalog component-bg-color">Movie Catalog</h2>
+      <input
         type="text"
         placeholder="Search by title or genre"
         value={searchTerm}
         onChange={(e) => setSearchTerm(e.target.value)}
-        style={{ marginBottom: "20px", padding: "6px", width: "25%" }}
+        className="movies-search-bar"
       />
-      
-      <h2>Movie Catalog</h2>
-
+      {/* Render login message ONCE, outside the map */}
       {!isAuthenticated && (
-              <p style={{ color: 'gray' }}>Log in to view movie details</p>
-            )}
-
-      <ul className="list-of-movies">
-
+                    <p className="log-in-text component-bg-color">Log-in or Sign up for your Leisure Buddy movie recommendation and social experience!</p>
+                  )}
+      <ul className="movies-grid">
         {filteredMovies.map((movie) => (
-          <li key={movie.id}>
-            {movie.title} - {movie.genres}
-            {!isAuthenticated && (
-              <p style={{ color: 'gray' }}>Log in to view movie details</p>
-            )}
+          <li className="movie-card" key={movie.id}>
+            <img className="movie-card-poster" src={movie.movie_poster} alt={`${movie.title} poster`} />
+            <div className="movie-card-title">{movie.title}</div>
+            <div className="movie-card-genre">{movie.genres}</div>
             {isAuthenticated && (
-              <Link to={`/movies/${movie.id}`} style={{ marginLeft: '10px' }}>
-                <button>View Movie Details</button>
+                <Link className="movie-card-details-link" to={`/movies/${movie.id}`}>
+                View Movie Details
               </Link>
             )}
           </li>
