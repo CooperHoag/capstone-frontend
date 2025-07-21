@@ -1,0 +1,85 @@
+.login-container {
+  background: #028391;
+  max-width: 410px;
+  margin: 64px auto 0 auto;
+  padding: 2.2rem 2rem 2.2rem 2rem;
+  border-radius: 14px;
+  box-shadow: 0 4px 20px #01204e33;
+  text-align: center;
+}
+
+.login-title {
+  background: #028391;
+  color: #01204E;
+  font-family: 'Geneva', Arial, sans-serif;
+  font-size: 2.2rem;
+  margin-bottom: 1.8rem;
+  letter-spacing: 0.2px;
+}
+
+.login-form {
+  background: #028391;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.login-label {
+  background: #028391;
+  color: #01204E;
+  font-size: 1.09rem;
+  font-weight: 600;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.login-input {
+  margin-top: 7px;
+  padding: 10px;
+  border-radius: 7px;
+  border: 1.5px solid #faa968;
+  background: #f6dcac;
+  color: #01204E;
+  font-size: 1.02rem;
+  width: 100%;
+  box-sizing: border-box;
+  transition: border 0.17s;
+}
+
+.login-button {
+  margin-top: 10px;
+  background: #faa968;
+  color: #01204E;
+  border: none;
+  border-radius: 7px;
+  padding: 11px 0;
+  font-size: 1.15rem;
+  font-weight: 700;
+  cursor: pointer;
+  box-shadow: 0 2px 8px #01204e14;
+  transition: background 0.14s;
+  width: 100%;
+}
+
+.login-button:hover {
+  background: #f85525;
+  color: #f6dcac;
+}
+
+.login-register-link {
+  background: #028391;
+  margin-top: 2rem;
+  font-size: 1.04rem;
+}
+
+.login-register-link a {
+  color: #01204E;
+  text-decoration: underline;
+  font-weight: 600;
+  transition: color 0.14s;
+}
+
+.login-register-link-text {
+  background: #028391;
+}

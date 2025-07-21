@@ -51,6 +51,15 @@
   background: #028391;
 }
 
+.no-movies-in-rated {
+  background: #028391;
+  font-size: 25px;
+}
+
+.see-movie-list-link {
+  background: #028391;
+}
+
 .account-movies-list {
   background: #028391;
   list-style: none;

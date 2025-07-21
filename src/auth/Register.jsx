@@ -1,9 +1,8 @@
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { useAuth } from "./AuthContext";
-import "../stylesheets/register.css"; // <-- Add this line
+import "../stylesheets/Register.css";
 
-/** A form that allows users to register for a new account */
 export default function Register() {
   const { register, setToken } = useAuth();
   const navigate = useNavigate();
@@ -61,39 +60,37 @@ export default function Register() {
 
   return (
     <div className="register-container">
-      <h1>Register for an account</h1>
-      <form onSubmit={handleSubmit}>
-        <label>
+      <h1 className="register-title">Register for an account</h1>
+      <form className="register-form" onSubmit={handleSubmit}>
+        <label className="register-label">
           First Name
-          <input type="text" name="firstName" required />
+          <input className="register-input" type="text" name="firstName" required />
         </label>
-        <label>
+        <label className="register-label">
           Last Name
-          <input type="text" name="lastName" required />
+          <input className="register-input" type="text" name="lastName" required />
         </label>
-        <label>
+        <label className="register-label">
           Email
-          <input type="email" name="email" required />
+          <input className="register-input" type="email" name="email" required />
         </label>
-        <label>
+        <label className="register-label">
           Username
-          <input type="text" name="username" required />
+          <input className="register-input" type="text" name="username" required />
         </label>
-        <label>
+        <label className="register-label">
           Password
-          <input type="password" name="password" required />
+          <input className="register-input" type="password" name="password" required />
         </label>
-        <label>
+        <label className="register-label">
           Bio
-          <textarea name="bio" />
+          <textarea className="register-input register-bio" name="bio" />
         </label>
+        
+      
 
-        <button type="submit">Register</button>
-        {error && <div className="register-error">{error}</div>} {/* <-- Update error styling */}
-      </form>
-
-      <fieldset>
-        <legend>Select exactly 3 favorite genres</legend>
+      <fieldset className="genre-fieldset">
+        <legend className="genre-legend">Select your top 3 favorite genres</legend>
         <div className="genre-options">
           {genres.map((genre) => (
             <label
@@ -114,14 +111,18 @@ export default function Register() {
             </label>
           ))}
         </div>
-        {selectedGenres.length !== 3 && (
-          <p className="register-error">
+        {/* {selectedGenres.length !== 3 && (
+          <div className="register-error genre-error">
             Please select exactly 3 genres.
-          </p>
-        )}
+          </div>
+        )} */}
       </fieldset>
-
-      <Link to="/login">Already have an account? Log in here.</Link>
+      <button className="register-button" type="submit">Register</button>
+        {error && <div className="register-error">{error}</div>}
+      </form>
+      <div className="register-login-link">
+        <Link className="register-login-link-text" to="/login">Already have an account? Log in here.</Link>
+      </div>
     </div>
   );
 }

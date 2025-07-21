@@ -1,193 +1,180 @@
-/* * {
-  background: lightgray;
-} */
-
-
-fieldset {
-  border: 2px solid #01204E;       
-  background-color: #F6DCAC;       
-  padding: 1rem 1.5rem;
-  border-radius: 8px;
-  margin: 1rem 0;
-  color: #01204E;                  
-}
-
-legend {
-  font-weight: bold;
-  font-size: 1.1rem;
-  color: #028391;                 
-  padding: 0 10px;
-}
-
-
-.genre-options {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 10px;
-  margin-top: 0.75rem;
-}
-
-
-.genre-label {
-  padding: 6px 12px;
-  border: 1.5px solid gray;
-  border-radius: 6px;
-  cursor: pointer;
-  user-select: none;
-  transition: border-color 0.3s ease, background-color 0.3s ease;
-  font-weight: 600;
-  color: #01204E; 
-}
-
-
-.genre-label.selected {
-  border-color: #FAA968;           
-  background-color: #F85525;       
-  color: white;
-}
-
-.genre-label input {
-  margin-right: 6px;
-  cursor: pointer;
-}
-
-body, .register-page {
-  background: linear-gradient(135deg, #F6DCAC 0%, #FAA968 100%);
-  font-family: 'Segoe UI', Arial, sans-serif;
-  color: #01204E; 
-  min-height: 100vh;
-  margin: 0;
-  padding: 0;
-}
-
-
 .register-container {
-  max-width: 420px;
-  margin: 2rem auto;
-  background: #F6DCAC; 
-  border-radius: 12px;
-  box-shadow: 0 2px 16px rgba(1,32,78,0.08);
-  padding: 2rem 2.5rem;
-  border: 2px solid #01204E;
+  background: #f6dcac;
+  max-width: 500px;
+  margin: 48px auto 0 auto;
+  padding: 2.3rem 2rem 1.3rem 2rem;
+  border-radius: 16px;
+  box-shadow: 0 4px 24px #01204e20;
 }
 
-
-.register-container h1,
-.register-container legend {
-  color: #028391; 
-  font-weight: bold;
-  margin-bottom: 1rem;
+.register-title {
+  background: #f6dcac;
+  color: #028391;
+  font-family: 'Geneva', Arial, sans-serif;
+  font-size: 2.3rem;
+  font-weight: 700;
+  text-align: center;
+  margin-bottom: 1.9rem;
+  letter-spacing: 0.5px;
 }
 
+.register-form {
+  background: #f6dcac;
+  display: flex;
+  flex-direction: column;
+  gap: 1.3rem;
+}
 
-.register-container input[type="text"],
-.register-container input[type="email"],
-.register-container input[type="password"],
-.register-container textarea {
-  width: 100%;
-  padding: 8px 12px;
-  margin: 0.5rem 0 1rem 0;
-  border: 1.5px solid #028391;
-  border-radius: 6px;
+.register-label {
+  background: #f6dcac;
+  color: #028391;
+  font-size: 1.08rem;
+  font-weight: 600;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.register-input {
+  margin-top: 7px;
+  padding: 11px 10px;
+  border-radius: 8px;
+  border: 1.7px solid #028391;
   background: #fff;
   color: #01204E;
-  font-size: 1rem;
-  transition: border-color 0.3s;
+  font-size: 1.03rem;
+  width: 100%;
+  box-sizing: border-box;
+  transition: border 0.16s;
 }
 
-.register-container input:focus,
-.register-container textarea:focus {
-  border-color: #F85525; 
+.register-input:focus {
+  border: 1.7px solid #028391;
   outline: none;
 }
 
-
-fieldset {
-  border: 2px solid #01204E;
-  background-color: #F6DCAC;
-  padding: 1rem 1.5rem;
-  border-radius: 8px;
-  margin: 1rem 0;
-  color: #01204E;
+.register-bio {
+  /* background: #f6dcac; */
+  min-height: 70px;
+  resize: vertical;
 }
 
-legend {
-  font-weight: bold;
-  font-size: 1.1rem;
-  color: #028391;
-  padding: 0 10px;
-}
-
-
-.genre-options {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 10px;
-  margin-top: 0.75rem;
-}
-
-
-.genre-label {
-  padding: 6px 12px;
-  border: 1.5px solid gray;
-  border-radius: 6px;
-  cursor: pointer;
-  user-select: none;
-  transition: border-color 0.3s ease, background-color 0.3s ease;
-  font-weight: 600;
-  color: #01204E;
-  background: #fff;
-}
-
-
-.genre-label.selected {
-  border-color: #FAA968;           
-  background-color: #F85525;       
-  color: white;
-}
-
-.genre-label input {
-  margin-right: 6px;
-  cursor: pointer;
-}
-
-
-.register-container button[type="submit"] .register-container .login-btn {
-  background: #028391; 
-  color: #fff;
+.register-button {
+  margin-top: 13px;
+  background: #028391;
+  color: #f6dcac;
   border: none;
-  border-radius: 6px;
-  padding: 10px 24px;
-  font-size: 1.1rem;
-  font-weight: bold;
+  border-radius: 8px;
+  padding: 13px 0;
+  font-size: 1.18rem;
+  font-weight: 700;
   cursor: pointer;
-  margin-top: 1rem;
-  transition: background 0.3s;
+  box-shadow: 0 2px 8px #01204e14;
+  transition: background 0.14s;
+  width: 40%;
+  align-self: flex-start;
 }
 
-.register-container button[type="submit"]:hover, .register-container .login-btn:hover {
-  background: #F85525; 
+.register-button:hover {
+  background: #faa968;
+  color: #01204E;
 }
-
 
 .register-error {
-  color: #F85525;
-  background: #FAA968;
+  margin-top: 11px;
+  color: #f85525;
+  background: #ffe9df;
+  border: 1.2px solid #faa968;
   border-radius: 6px;
-  padding: 8px 12px;
-  margin-bottom: 1rem;
-  font-weight: bold;
-  border: 1px solid #F85525;
+  padding: 9px 14px;
+  font-weight: 500;
+  font-size: 1rem;
+  width: fit-content;
 }
 
+.genre-fieldset {
+  border: 2px solid #01204e;
+  border-radius: 12px;
+  margin: 2.2rem 0 1.3rem 0;
+  padding: 1.3rem 1.1rem 0.9rem 1.1rem;
+  background: #f6dcac;
+}
 
-.register-container a {
+.genre-legend {
+  background: #f6dcac;
+  color: #028391;
+  font-size: 1.1rem;
+  font-weight: 700;
+  padding: 0 12px;
+  letter-spacing: 0.3px;
+}
+
+.genre-options {
+  background: #f6dcac;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+  margin-top: 18px;
+  margin-bottom: 8px;
+  justify-content: flex-start;
+}
+
+.genre-label {
+  background: #fff;
+  border: 1.4px solid #028391;
+  border-radius: 7px;
+  padding: 8px 18px;
+  font-weight: 600;
+  color: #028391;
+  cursor: pointer;
+  user-select: none;
+  transition: background 0.14s, color 0.14s, border 0.14s;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.genre-label.selected {
+  background: #028391;
+  color: #f6dcac;
+  border: 1.5px solid #01204E;
+}
+
+.genre-label input[type="checkbox"] {
+  accent-color: #028391;
+  margin-right: 6px;
+  width: 1em;
+  height: 1em;
+}
+
+.genre-error {
+  background: #faa968;
+  color: #f85525;
+  border: 1.4px solid #f85525;
+  margin-top: 10px;
+  font-size: 1.01rem;
+  text-align: left;
+  width: 100%;
+}
+
+.register-login-link {
+  background: #f6dcac;
+  margin-top: 2.1rem;
+  font-size: 1.06rem;
+  text-align: left;
+}
+
+.register-login-link a {
   color: #028391;
   text-decoration: underline;
-  font-weight: 500;
+  font-weight: 600;
+  transition: color 0.15s;
 }
 
-.register-container a:hover {
-  color: #F85525;
+.register-login-link a:hover {
+  color: #01204e;
 }
 
+.register-login-link-text {
+  background: #f6dcac;
+}

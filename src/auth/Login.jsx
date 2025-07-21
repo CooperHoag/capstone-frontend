@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { Link, useNavigate } from "react-router";
-
 import { useAuth } from "./AuthContext";
+import "../stylesheets/Login.css"
 
 /** A form that allows users to log into an existing account. */
 export default function Login() {
@@ -22,21 +22,23 @@ export default function Login() {
   };
 
   return (
-    <>
-      <h1>Log in to your account</h1>
-      <form action={onLogin}>
-        <label>
+    <div className="login-container">
+      <h1 className="login-title">Log in to your account</h1>
+      <form classname="login-form" action={onLogin}>
+        <label className="login-label">
           Username
-          <input type="username" name="username" required />
+          <input className="login-input" type="username" name="username" required />
         </label>
-        <label>
+        <label className="login-label">
           Password
-          <input type="password" name="password" required />
+          <input className="login-input" type="password" name="password" required />
         </label>
-        <button>Login</button>
+        <button className="login-button">Login</button>
         {error && <output>{error}</output>}
       </form>
-      <Link to="/register">Need an account? Register here.</Link>
-    </>
+      <div className="login-register-link">
+        <Link className="login-register-link-text" to="/register">Need an account? Register here.</Link>
+      </div>
+    </div>
   );
 }
