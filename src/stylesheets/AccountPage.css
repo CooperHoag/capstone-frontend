@@ -1,0 +1,208 @@
+.account-page {
+  background: #028391;
+  text-align: center;
+  margin: 40px auto 0 auto;
+  max-width: 1000px;
+  padding: 2rem 1rem;
+  border-radius: 10px;
+  box-shadow: 0 2px 14px black;
+}
+
+.welcome-user {
+  background: #028391;
+}
+
+.account-tabs {
+  background: #028391;
+  display: flex;
+  justify-content: center;
+  gap: 12px;
+  margin-bottom: 1.5rem;
+}
+
+.tab-btn {
+  padding: 0.5rem 1.4rem;
+  border-radius: 7px;
+  border: 1px solid #bbb;
+  background: #f6dcac;
+  cursor: pointer;
+  font-weight: 500;
+  transition: background 0.18s, border 0.18s;
+}
+
+.tab-btn.active {
+  background: #f85525;
+  border: 2px solid #234;
+}
+
+.each-section {
+  background: #028391;
+}
+
+.each-section-title {
+  background: #028391;
+}
+
+.filter-dropdown {
+  background: lightgrey;
+}
+
+.filter-name {
+  background: #028391;
+}
+
+.account-movies-list {
+  background: #028391;
+  list-style: none;
+  padding: 0;
+  margin: 1rem 0 0 0;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.movie-item-box {
+  background: #faa968;
+  border: 1px solid #eee;
+  display: flex;
+  align-items: flex-start;
+  border-radius: 14px;
+  box-shadow: 0 1px 8px #0002;
+  padding: 20px 28px;
+  gap: 32px;
+}
+
+.account-movie-title {
+  background: #faa968;
+  font-size: 1.4rem;
+  font-weight: 700;
+}
+
+.account-movie-genre {
+  background: #faa968;
+  font-size: 1rem;
+  margin-left: 8px;
+}
+
+.movie-poster-col {
+  background: #faa968;
+  flex: 0 0 150px;
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+}
+
+.account-movie-poster {
+  width: 140px;
+  height: 210px;
+  object-fit: cover;
+  border-radius: 8px;
+  box-shadow: 0 2px 12px black;
+}
+
+.movie-info-col {
+  background: #faa968;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.account-movie-rating {
+  background: #faa968;
+  font-size: 1.2rem;
+  margin-left: 12px;
+}
+
+.account-movie-plot {
+  background: #faa968;
+  font-size: 1.08rem;
+  margin-top: 10px;
+  padding-left: 15px;
+}
+
+.watchlist-item {
+  align-items: center;
+}
+
+.delete-btn {
+  align-self: flex-end;
+  margin-top: 16px;
+  padding: 6px 18px;
+  border-radius: 5px;
+  border: 1px solid #d66;
+  background: #fbeaea;
+  color: #a22;
+  cursor: pointer;
+  font-size: 1rem;
+  transition: background 0.18s, border 0.18s;
+}
+
+.delete-btn:hover {
+  background: #fadada;
+  border: 1px solid #c44;
+}
+
+.suggestion-grid {
+  background: #028391;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 2rem;
+  justify-items: center;
+  margin: 2rem 0;
+}
+
+.suggestion-movie-box {
+  background: #F6DCAC;
+  border-radius: 16px;
+  box-shadow: 0 2px 12px #01204e14;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 18px 8px;
+  min-width: 180px;
+  min-height: 290px;
+}
+
+.suggestion-movie-poster {
+  width: 120px;
+  height: 180px;
+  object-fit: cover;
+  border-radius: 9px;
+  margin-bottom: 1rem;
+}
+
+.suggestion-movie-title {
+  background: #F6DCAC;
+  font-size: 1.08rem;
+  font-weight: 700;
+  color: #01204E;
+  margin-bottom: 0.2rem;
+  text-align: center;
+}
+
+.suggestion-movie-genre {
+  background: #F6DCAC;
+  font-size: 1rem;
+  color: #028391;
+  font-weight: 500;
+  text-align: center;
+}
+
+.movie-details-button-suggestions {
+  margin-top: 14px;
+  background: #028391;
+  color: #F6DCAC;
+  border: none;
+  border-radius: 7px;
+  padding: 7px 15px;
+  font-size: 1rem;
+  cursor: pointer;
+  font-weight: 600;
+  transition: background 0.15s;
+}
+
+.movie-details-link-suggestions:hover {
+  color: #F85525;
+  text-decoration: underline;
+}
