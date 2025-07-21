@@ -1,6 +1,58 @@
 import { useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
 import useQuery from "../api/useQuery";
-import RemoveFromWatchlistButton from "../pages/RemoveFromWatchlistButton";
+import "../stylesheets/AccountPage.css";
+
+const suggestions = [
+  {
+    id: 2, 
+    title: "Batman Begins",
+    genre: "Action",
+    poster: "https://th.bing.com/th/id/OIP.N3ovIsICeEFj3oXwNlxcXAHaEK?w=329&h=185&c=7&r=0&o=7&dpr=2&pid=1.7&rm=3",
+  },
+  {
+    id: 40, 
+    title: "Superbad",
+    genre: "Comedy",
+    poster: "https://image.tmdb.org/t/p/w500/ek8e8txUyUwd2BNqj6lFEerJfbq.jpg",
+  },
+  {
+    id: 26,
+    title: "Mad Max: Fury Road",
+    genre: "Action",
+    poster: "https://image.tmdb.org/t/p/w500/8tZYtuWezp8JbcsvHYO0O46tFbo.jpg",
+  },
+  {
+    id: 1,
+    title: "The Notebook",
+    genre: "Romance",
+    poster: "https://th.bing.com/th/id/OIP.SdcmSGzsBZN5yogbxWqqLgHaHa?w=185&h=185&c=7&r=0&o=7&dpr=2&pid=1.7&rm=3",
+  },
+  {
+    id: 31,
+    title: "Die Hard",
+    genre: "Action",
+    poster: "https://filmartgallery.com/cdn/shop/files/Die-Hard-Vintage-Movie-Poster-Original_b2d11d4a_600x.jpg?v=1741144345",
+  },
+  {
+    id: 70,
+    title: "The Big Lebowski",
+    genre: "Comedy",
+    poster: "https://i.ebayimg.com/images/g/S58AAOSwOyJX31n6/s-l1600.webp",
+  },
+  {
+    id: 30,
+    title: "La La Land",
+    genre: "Romance",
+    poster: "https://image.tmdb.org/t/p/w500/uDO8zWDhfWwoFdKS4fzkUJt0Rf0.jpg",
+  },
+  {
+    id: 39,
+    title: "Groundhog Day",
+    genre: "Comedy",
+    poster: "https://i.ebayimg.com/images/g/SNgAAOSwWYtkVDVT/s-l1600.webp",
+  },
+];
 
 export default function AccountPage() {
   const { data: user, loading, error } = useQuery("/users/me", "me");
@@ -15,33 +67,38 @@ export default function AccountPage() {
   if (ratedFilter === "disliked") filteredRated = ratedMovies.filter(m => m.rating === false);
 
   
-  function handleRemovedFromWatchlist(movieId) {
-    // Remove the movie locally from the watchlist
-    const updatedWatchlist = watchlist.filter((movie) => movie.id !== movieId);
-    watchlist.splice(0, watchlist.length, ...updatedWatchlist);
-    refetchWatchlist(); // Refetch the watchlist for data consistency
-  }
+  async function handleDeleteWatchlist(movieId) {
+    await fetch(`https://capstone-backend-w0dr.onrender.com/api/watchlist/${movieId}`, {
+      method: "DELETE",
+      credentials: "include",
+    });
+    refetchWatchlist();
+  }  
 
   if (loading) return <p>Loading account info...</p>;
   if (error) return <p>Error: {error.message}</p>;
   if (!user) return <p>No user data found.</p>;
 
   return (
-    <div>
-      <h1>Welcome, {user.first_name}!</h1>
-      <nav style={{ marginBottom: "1rem" }}>
-        <button onClick={() => setActiveTab("rated")}>Rated Movies</button>
-        <button onClick={() => setActiveTab("watchlist")}>Watchlist</button>
-        <button onClick={() => setActiveTab("suggestions")}>Movie Suggestions</button>
+    <div className="account-page">
+      <h1 className="welcome-user">Welcome, {user.first_name}!</h1>
+      <nav className="account-tabs">
+        <button className={activeTab === "rated" ? "tab-btn active" : "tab-btn"} 
+        onClick={() => setActiveTab("rated")}>Rated Movies</button>
+        <button className={activeTab === "watchlist" ? "tab-btn active" : "tab-btn"} 
+        onClick={() => setActiveTab("watchlist")}>Watchlist</button>
+        <button className={activeTab === "suggestions" ? "tab-btn active" : "tab-btn"} 
+        onClick={() => setActiveTab("suggestions")}>Movie Suggestions</button>
       </nav>
 
-      {/* Rated Movies Tab */}
       {activeTab === "rated" && (
-        <section>
-          <h2>Your Rated Movies</h2>
-          <label>
+        <section className="each-section">
+          <h2 className="each-section-title">Your Rated Movies</h2>
+          <label className="filter-name">
             Show:&nbsp;
-            <select value={ratedFilter} onChange={e => setRatedFilter(e.target.value)}>
+            <select value={ratedFilter} 
+            onChange={event => setRatedFilter(event.target.value)}
+            className="filter-dropdown">
               <option value="all">All</option>
               <option value="liked">👍 Liked</option>
               <option value="disliked">👎 Disliked</option>
@@ -54,12 +111,18 @@ export default function AccountPage() {
                 <a href="/movies">Click HERE to see movie list.</a>
               </p>
             ) : (
-              <ul>
+              <ul className="account-movies-list">
                 {filteredRated.map(movie => (
-                  <li key={movie.rating_id || `${movie.id}-${movie.rating}`}>
-                    <strong>{movie.title}</strong> ({movie.genres})<br />
-                    {movie.rating === true ? "👍" : "👎"}<br />
-                    <em>{movie.plot_summary}</em>
+                  <li key={movie.rating_id || `${movie.id}-${movie.rating}`} className="movie-item-box">
+                    <div className="movie-poster-col">
+                      <img className="account-movie-poster" src={movie.movie_poster} />
+                    </div>
+                    <div className="movie-info-col">
+                      <strong className="account-movie-title">{movie.title}</strong> 
+                      <span className="account-movie-genre">({movie.genres})</span>
+                      <span className="account-movie-rating">{movie.rating === true ? "👍" : "👎"}</span>
+                      <em className="account-movie-plot">{movie.plot_summary}</em>
+                    </div>
                   </li>
                 ))}
               </ul>
@@ -68,22 +131,25 @@ export default function AccountPage() {
         </section>
       )}
 
-      {/* Watchlist Tab */}
       {activeTab === "watchlist" && (
-        <section>
-          <h2>Your Watchlist</h2>
+        <section className="each-section">
+          <h2 className="each-section-title">Your Watchlist</h2>
           {loadingWatchlist ? <p>Loading...</p> : (
             watchlist.length === 0 ? (
               <p>Your watchlist is empty!</p>
             ) : (
-              <ul>
+              <ul className="account-movies-list">
                 {watchlist.map(movie => (
-                  <li key={movie.id} style={{ display: "flex", alignItems: "center", gap: "1rem", marginBottom: "0.5rem" }}>
-                    <div>
-                      <strong>{movie.title}</strong> ({movie.genres})<br />
-                      <em>{movie.plot_summary}</em>
+                  <li key={movie.id} className="movie-item-box">
+                    <div className="movie-poster-col">
+                      <img className="account-movie-poster" src={movie.movie_poster} />
                     </div>
-                    <RemoveFromWatchlistButton movie={movie} onRemoved={handleRemovedFromWatchlist} refetchWatchlist={refetchWatchlist} />
+                    <div className="movie-info-col">
+                      <strong className="account-movie-title">{movie.title}</strong> 
+                      <span className="account-movie-genre">({movie.genres})</span>
+                      <em className="account-movie-plot">{movie.plot_summary}</em>
+                      <button className="delete-btn" onClick={() => handleDeleteWatchlist(movie.id)}>Remove</button>
+                    </div>
                   </li>
                 ))}
               </ul>
@@ -92,14 +158,21 @@ export default function AccountPage() {
         </section>
       )}
 
-      {/* Suggestions Tab */}
       {activeTab === "suggestions" && (
-        <section>
-          <h2>Movie Suggestions (Coming Soon)</h2>
-          <p>This will show movie suggestions based on your preferences.</p>
+        <section className="each-section">
+          <h2 className="each-section-title">Your Personalized Movie Suggestions</h2>
+          <div className="suggestion-grid">
+            {suggestions.map((movie, i) => (
+              <div className="suggestion-movie-box" key={i}>
+                <img className="suggestion-movie-poster" src={movie.poster} alt={movie.title} />
+                <div className="suggestion-movie-title">{movie.title}</div>
+                <div className="suggestion-movie-genre">{movie.genre}</div>
+                <Link className="movie-details-button-suggestions" to={`/movies/${movie.id}`}>View Movie Details</Link>
+              </div>
+            ))}
+          </div>
         </section>
       )}
     </div>
   );
 }
-

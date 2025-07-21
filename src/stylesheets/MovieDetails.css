@@ -1,0 +1,198 @@
+.movie-details {
+  background: #028391;
+  text-align: center;
+  margin: 40px auto 0 auto;
+  max-width: 500px;
+  padding: 2rem 1rem;
+  border-radius: 10px;
+  box-shadow: 0 2px 14px black;
+}
+
+.movie-title {
+  background: #028391;
+  margin-top: 1px;
+  font-family: Courier New, monospace;
+  font-size: 35px;
+}
+
+.movie-poster {
+  width: 250px;
+  height: auto;
+  border-radius: 10px;
+  box-shadow: 0 2px 14px black;
+}
+
+.movie-director {
+  background: #028391;
+}
+
+.director {
+  background: #028391;
+}
+
+.movie-genre {
+  background: #028391;
+}
+
+.genre {
+  background: #028391;
+}
+
+.movie-release-date {
+  background: #028391;
+}
+
+.release-date {
+  background: #028391;
+}
+
+.movie-plot-summary {
+  background: #028391;
+}
+
+.plot {
+  background: #028391;
+}
+
+.watchlist-btn {
+  background: #f85525;
+  color: #f6dcac;
+  padding: 15px 32px;
+  border-radius: 10px;
+  font-size: 16px;
+  transition-duration: 0.4s;
+}
+
+.watchlist-btn:hover {
+  background-color: #faa968;
+  color: #01204e;
+  cursor: pointer;
+}
+
+.rating-buttons {
+  background: #028391;
+}
+
+.rate-this-movie {
+  background: #028391;
+  font-weight: bold;
+}
+
+.rating-btn {
+  margin: 0 8px;
+  font-size: 1.5rem;
+  border-radius: 50%;
+  border: 1px solid #bbb;
+  background: #eee;
+  cursor: pointer;
+  padding: 8px 16px;
+}
+
+.rating-btn.selected {
+  border: 2px solid #01204e;
+}
+
+.leave-review {
+  background: #028391;
+  padding-top: 25px;
+}
+
+.leave-review-btn {
+  background: #f85525;
+  color: #f6dcac;
+  padding: 15px 32px;
+  border-radius: 10px;
+  font-size: 16px;
+  transition-duration: 0.4s;
+}
+
+.leave-review-btn:hover {
+  background-color: #faa968;
+  color: #01204e;
+  cursor: pointer;
+}
+
+.modal {
+  position: fixed;
+  top: 0; left: 0; width: 100vw; height: 100vh;
+  background: rgba(30,40,50,0.16);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 10;
+}
+
+.modal-content {
+  background: #f6dcac;
+  padding: 2rem;
+  border-radius: 12px;
+  max-width: 350px;
+  width: 100%;
+  text-align: center;
+}
+
+.leave-a-review-title {
+  background: #f6dcac;
+  font-size: 25px;
+}
+
+.review-textarea {
+  width: 92%;
+  min-height: 60px;
+  margin-bottom: 16px;
+  border-radius: 7px;
+  border: 1px solid #ccc;
+  padding: 8px;
+}
+
+.modal-submit-review-btn,
+.modal-cancel-review-btn {
+  padding: 0.5rem 1.2rem;
+  border-radius: 7px;
+  margin: 0 7px;
+  cursor: pointer;
+}
+
+.reviews-section {
+  background: #faa968;
+  border-radius: 10px;
+}
+
+.reviews-title {
+  background: #faa968;
+  border-radius: 10px;
+}
+
+.review-box {
+  border: 1px solid black;
+  border-radius: 7px;
+  padding: 12px 10px;
+  margin: 12px 0;
+  background: #f6dcac;
+}
+
+.review-username-area {
+  background: #f6dcac;
+}
+
+.review-username {
+  background: #f6dcac;
+}
+
+.follow-btn {
+  padding: 0.5rem 1.2rem;
+  border-radius: 7px;
+  margin: 0 7px;
+  cursor: pointer;
+  color: white;
+  background: #01204e;
+}
+
+.delete-review-btn {
+  padding: 0.5rem 1.2rem;
+  border-radius: 7px;
+  margin: 0 7px;
+  cursor: pointer;
+  color: white;
+  background: #01204e;
+}

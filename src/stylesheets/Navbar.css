@@ -1,0 +1,69 @@
+.navbar {
+  background: #01204E;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.75rem 2rem;
+  box-shadow: 0 2px 12px white;
+  border-radius: 10px;
+}
+
+.navbar-logo {
+  background: #01204E;
+  color: #F6DCAC;
+  font-size: 1.7rem;
+  font-weight: bold;
+  letter-spacing: 1px;
+  text-decoration: none;
+  transition: color 0.15s;
+}
+
+.leisure-buddy-nb {
+  background: #01204E;
+}
+
+.navbar-links {
+  background: #01204E;
+  display: flex;
+  gap: 1.5rem;
+  align-items: center;
+}
+
+.navbar-links .see-all-movies-nb,
+.navbar-links .account-nb,
+.navbar-links .login-nb,
+.navbar-links .register-nb {
+  background: #FAA968;
+  color: black;
+  text-decoration: none;
+  font-size: 1.09rem;
+  font-weight: 500;
+  padding: 5px 10px;
+  border-radius: 5px;
+  transition: background 0.13s, color 0.13s;
+}
+
+.navbar-links .see-all-movies-nb:hover,
+.navbar-links .account-nb:hover,
+.navbar-links .login-nb:hover,
+.navbar-links .register-nb:hover {
+  background: #028391;
+  color: #FFF;
+}
+
+.logout-nb {
+  background: #FAA968;
+  color: #01204E;
+  border: none;
+  border-radius: 5px;
+  font-size: 1rem;
+  padding: 5px 12px;
+  cursor: pointer;
+  font-weight: 500;
+  transition: background 0.15s, color 0.15s;
+}
+
+.logout-nb:hover {
+  background: #F85525;
+  color: #FFF;
+}

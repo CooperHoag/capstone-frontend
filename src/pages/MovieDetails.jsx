@@ -3,19 +3,18 @@ import { useEffect, useState } from "react";
 import useQuery from "../api/useQuery";
 import useMutation from "../api/useMutation";
 import { useApi } from "../api/ApiContext";
+import "../stylesheets/MovieDetails.css"
 
-// function useCurrentUser() {
-//   const { data: me } = useQuery("/users/me", "me");
-//   return me;
-// }
+function useCurrentUser() {
+  const { data: me } = useQuery("/users/me", "me");
+  return me;
+}
 
 export default function MovieDetails() {
-  // Get the movie ID from the URL
   const { id } = useParams();
   const { request } = useApi();
-  // const me = useCurrentUser();
+  const me = useCurrentUser();
 
-  // State for all the info and UI controls on the page
   const [movie, setMovie] = useState(null);
   const [error, setError] = useState("");
   const [inWatchlist, setInWatchlist] = useState(false);
@@ -27,49 +26,58 @@ export default function MovieDetails() {
   const [reviewsLoading, setReviewsLoading] = useState(true);
   const [following, setFollowing] = useState([]);
 
-  // When the component loads, fetch everything needed for this movie
+  // When the page loads, this fetches everything needed for this movie
   useEffect(() => {
-    // Fetch movie details, user's watchlist status, user's rating, and reviews
     async function fetchAll() {
+      setReviewsLoading(true);
+  
       try {
         // Movie info
         const res = await fetch(`https://capstone-backend-w0dr.onrender.com/api/movies/${id}`);
         if (!res.ok) throw new Error("Failed to fetch movie");
         const results = await res.json();
-        console.log(results);
         setMovie(results);
-
+  
         // Watchlist status
         const userWatchlist = await request("/watchlist");
-        setInWatchlist(
-          userWatchlist.some((entry) => entry.id === parseInt(id))
-        );
-
+        let foundInWatchlist = false;
+        for (let i = 0; i < userWatchlist.length; i++) {
+          if (userWatchlist[i].id === Number(id)) {
+            foundInWatchlist = true;
+          }
+        }
+        setInWatchlist(foundInWatchlist);
+  
         // User's rating for this movie
         const ratings = await request("/ratings/me");
-        const rated = ratings.find((r) => r.id === parseInt(id));
-        if (rated) {
-          setUserRating(rated.rating);
-          setUserRatingId(rated.rating_id);
+        let foundRating = null;
+        for (let i = 0; i < ratings.length; i++) {
+          if (ratings[i].id === Number(id)) {
+            foundRating = ratings[i];
+          }
+        }
+        if (foundRating) {
+          setUserRating(foundRating.rating);
+          setUserRatingId(foundRating.rating_id);
         } else {
           setUserRating(null);
           setUserRatingId(null);
         }
-
+  
         // Movie reviews
-        setReviewsLoading(true);
-        setReviews((await request(`/reviews/${id}`)) || []);
+        const fetchedReviews = await request(`/reviews/${id}`);
+        setReviews(fetchedReviews || []);
       } catch (err) {
         setError(err.message);
-      } finally {
-        setReviewsLoading(false);
       }
+      setReviewsLoading(false);
     }
-
+  
     fetchAll();
   }, []);
+  
 
-  // Handle adding/removing movie from user's watchlist
+  // adding/removing the movie from user's watchlist
   const { mutate: addToWatchlist } = useMutation("POST", "/watchlist", [
     "watchlist",
   ]);
@@ -88,7 +96,7 @@ export default function MovieDetails() {
     }
   };
 
-  // Handle rating: thumbs up, thumbs down, or remove rating
+  // thumbs up/down, or removes the rating
   const { mutate: rateMovie } = useMutation("POST", "/ratings", ["ratings"]);
   const handleRating = async (liked) => {
     const newRating = userRating === liked ? null : liked;
@@ -103,13 +111,13 @@ export default function MovieDetails() {
     );
 
     if (newRating === null) {
-      // Remove the rating if toggled off
+      // removes the rating if toggled off
       if (userRatingId) {
         await request(`/ratings/${userRatingId}`, { method: "DELETE" });
         setUserRatingId(null);
       }
     } else {
-      // Add or update the rating
+      // adds or updates the rating
       const success = await rateMovie({ movieId: id, rating: liked });
       if (success) {
         setUserRatingId(success.rating_id);
@@ -117,7 +125,6 @@ export default function MovieDetails() {
     }
   };
 
-  // Handle review pop-up, submit, and delete
   const { mutate: leaveReview } = useMutation("POST", "/reviews", [
     `reviews-${id}`,
   ]);
@@ -160,71 +167,57 @@ export default function MovieDetails() {
     }
   };
 
-  // Render everything!
   if (error) return <p>{error}</p>;
   if (!movie) return <p>Loading...</p>;
 
   return (
     <div className="movie-details">
-      <h2>{movie.title}</h2>
+      <h2 className="movie-title">{movie.title}</h2>
       {movie.movie_poster && (
-        <img src={movie.movie_poster} alt={`${movie.title} poster`} />
+        <img className="movie-poster" src={movie.movie_poster} />
       )}
-      <p>
-        <strong>Director:</strong> {movie.director}
-      </p>
-      <p>
-        <strong>Release Date:</strong> {formattedDate || "Unknown"}
-      </p>
-      <p>
-        <strong>Plot Summary:</strong> {movie.plot_summary}
-      </p>
+      <p className="movie-director"><strong className="director">Director:</strong> {movie.director}</p>
+      <p className="movie-genre"><strong className="genre">Genre:</strong> {movie.genres}</p>
+      <p className="movie-release-date"><strong className="release-date">Release Date:</strong> {formattedDate || "Unknown"}</p>
+      <p className="movie-plot-summary"><strong className="plot">Plot Summary:</strong> {movie.plot_summary}</p>
 
-      <button onClick={toggleWatchlist}>
+      <button className="watchlist-btn" onClick={toggleWatchlist}>
         {inWatchlist ? "✓ In Watchlist" : "Add to Watchlist"}
       </button>
 
       <div className="rating-buttons">
-        <p>Rate this movie:</p>
+        <p className="rate-this-movie">Rate this movie:</p>
         <button
+          className={userRating === true ? "rating-btn selected" : "rating-btn"}
           onClick={() => handleRating(true)}
-          style={{
-            fontWeight: userRating === true ? "bold" : "normal",
-            border: userRating === true ? "2px solid black" : "1px solid gray",
-          }}
-        >
-          👍
-        </button>
+        >👍</button>
+
         <button
+          className={userRating === false ? "rating-btn selected" : "rating-btn"}
           onClick={() => handleRating(false)}
-          style={{
-            fontWeight: userRating === false ? "bold" : "normal",
-            border: userRating === false ? "2px solid black" : "1px solid gray",
-          }}
-        >
-          👎
-        </button>
+        >👎</button>
       </div>
 
       <div className="leave-review">
-        <button onClick={() => setShowModal(true)}>Leave a Review</button>
+        <button className="leave-review-btn" onClick={() => setShowModal(true)}>Leave a Review</button>
       </div>
       {showModal && (
         <div className="modal">
           <div className="modal-content">
-            <h3>Leave a Review</h3>
+            <h3 className="leave-a-review-title">Leave a Review</h3>
             <textarea
+              className="review-textarea"
               value={reviewContent}
               onChange={(e) => setReviewContent(e.target.value)}
             />
-            <button onClick={submitReview}>Submit</button>
-            <button onClick={() => setShowModal(false)}>Cancel</button>
+            <button className="modal-submit-review-btn" onClick={submitReview}>Submit</button>
+            <button className="modal-cancel-review-btn" onClick={() => setShowModal(false)}>Cancel</button>
           </div>
         </div>
       )}
 
-      <div className="reviews">
-        <h3>Reviews:</h3>
+      <div className="reviews-section">
+        <h3 className="reviews-title">Reviews:</h3>
         {reviewsLoading ? (
           <p>Loading reviews...</p>
         ) : (
@@ -234,19 +227,15 @@ export default function MovieDetails() {
               (review.user_id === me.id || review.username === me.username);
             return (
               <div key={review.id} className="review-box">
-                <p>
-                  <strong>{review.username}:</strong> {review.content}
-                </p>
-
-                {/* ✅ Follow/Unfollow button */}
+                <p className="review-username-area"><strong className="review-username">{review.username}:</strong> {review.content}</p>
                 {me && review.user_id !== me.id && (
-                  <button onClick={() => toggleFollow(review.user_id)}>
+                  <button className="follow-btn" onClick={() => toggleFollow(review.user_id)}>
                     {following.includes(review.user_id) ? "Unfollow" : "Follow"}
                   </button>
                 )}
 
                 {isOwnReview && (
-                  <button onClick={() => handleDeleteReview(review.id)}>
+                  <button className="delete-review-btn" onClick={() => handleDeleteReview(review.id)}>
                     Delete
                   </button>
                 )}
